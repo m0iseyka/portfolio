@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Akantito — Купе нового поколения</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0a0a0a;
+    --black-2:#141414;
+    --black-3:#1c1c1c;
+    --red:#FF1E2D;
+    --red-deep:#B8000F;
+    --grey:#8a8a8a;
+    --grey-light:#c7c7c7;
+    --white:#f5f5f5;
+    --line:#2a2a2a;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--black);
+    color:var(--white);
+    font-family:'Inter',Arial,sans-serif;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Oswald',Arial Narrow,sans-serif;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    font-weight:700;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{display:block;max-width:100%;}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:20px 48px;
+    background:linear-gradient(to bottom, rgba(10,10,10,0.95), rgba(10,10,10,0));
+    transition:background .3s;
+  }
+  header .logo-mark{height:32px;}
+  nav ul{display:flex;gap:36px;list-style:none;}
+  nav a{
+    font-size:13px;letter-spacing:2px;text-transform:uppercase;
+    color:var(--grey-light);font-weight:500;
+    position:relative;padding-bottom:4px;
+  }
+  nav a::after{
+    content:'';position:absolute;left:0;bottom:0;width:0;height:2px;
+    background:var(--red);transition:width .25s;
+  }
+  nav a:hover{color:var(--white);}
+  nav a:hover::after{width:100%;}
+  .btn-nav{
+    border:1px solid var(--red);color:var(--white)!important;
+    padding:10px 22px;font-size:12px;letter-spacing:2px;
+  }
+  .btn-nav:hover{background:var(--red);}
+  .btn-nav::after{display:none;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;min-height:100vh;
+    display:flex;flex-direction:column;justify-content:center;
+    background:var(--black);
+    overflow:hidden;
+  }
+  .hero-img{
+    position:absolute;inset:0;width:100%;height:100%;
+    object-fit:cover;opacity:0.92;
+  }
+  .hero-fade{
+    position:absolute;inset:0;
+    background:linear-gradient(to bottom, rgba(10,10,10,0.2) 0%, rgba(10,10,10,0.1) 40%, rgba(10,10,10,1) 96%);
+  }
+  .hero-content{
+    position:relative;z-index:2;padding:0 48px;max-width:1400px;margin:0 auto;width:100%;
+  }
+  .eyebrow{
+    color:var(--red);font-size:13px;letter-spacing:5px;font-weight:600;margin-bottom:18px;
+    display:flex;align-items:center;gap:14px;
+  }
+  .eyebrow::before{content:'';width:36px;height:2px;background:var(--red);}
+  .hero h1{
+    font-size:clamp(56px,11vw,168px);line-height:0.92;color:var(--white);
+    letter-spacing:-1px;
+  }
+  .hero h1 span{color:var(--red);}
+  .hero-sub{
+    margin-top:24px;font-size:18px;color:var(--grey-light);max-width:480px;
+    font-weight:300;line-height:1.5;
+  }
+  .hero-stats{
+    display:flex;gap:56px;margin-top:48px;flex-wrap:wrap;
+  }
+  .hero-stat .num{
+    font-family:'Oswald',sans-serif;font-size:42px;font-weight:700;color:var(--white);line-height:1;
+  }
+  .hero-stat .num span{color:var(--red);font-size:20px;}
+  .hero-stat .label{font-size:12px;letter-spacing:2px;color:var(--grey);margin-top:6px;text-transform:uppercase;}
+  .hero-ctas{display:flex;gap:18px;margin-top:48px;}
+
+  .btn-primary{
+    background:var(--red);color:#fff;padding:17px 38px;font-size:13px;
+    letter-spacing:2px;text-transform:uppercase;font-weight:600;
+    border:none;cursor:pointer;transition:background .2s, transform .2s;
+  }
+  .btn-primary:hover{background:#e30715;transform:translateY(-2px);}
+  .btn-secondary{
+    border:1px solid var(--line);color:var(--white);padding:17px 38px;
+    font-size:13px;letter-spacing:2px;text-transform:uppercase;font-weight:600;
+    transition:border-color .2s,background .2s;
+  }
+  .btn-secondary:hover{border-color:var(--white);background:rgba(255,255,255,0.05);}
+
+  .scroll-cue{
+    position:absolute;bottom:36px;left:48px;z-index:2;
+    display:flex;align-items:center;gap:10px;color:var(--grey);
+    font-size:11px;letter-spacing:3px;text-transform:uppercase;
+  }
+  .scroll-cue .line{width:1px;height:40px;background:var(--line);position:relative;overflow:hidden;}
+  .scroll-cue .line::after{
+    content:'';position:absolute;top:0;left:0;width:100%;height:30%;background:var(--red);
+    animation:scrollMove 1.8s ease-in-out infinite;
+  }
+  @keyframes scrollMove{0%{top:-30%;}100%{top:100%;}}
+
+  /* ---------- SECTION GENERIC ---------- */
+  section{padding:140px 48px;max-width:1400px;margin:0 auto;}
+  .section-head{margin-bottom:64px;max-width:640px;}
+  .section-head .eyebrow{margin-bottom:14px;}
+  .section-head h2{font-size:clamp(32px,5vw,56px);color:var(--white);line-height:1.05;}
+  .section-head p{margin-top:18px;color:var(--grey-light);font-size:16px;line-height:1.6;font-weight:300;}
+
+  /* ---------- PERFORMANCE NUMBERS ---------- */
+  .perf-strip{
+    background:var(--black-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:64px 48px;
+  }
+  .perf-grid{
+    max-width:1400px;margin:0 auto;
+    display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  }
+  .perf-item{
+    text-align:center;padding:0 24px;border-right:1px solid var(--line);
+  }
+  .perf-item:last-child{border-right:none;}
+  .perf-item .num{font-family:'Oswald',sans-serif;font-size:clamp(36px,4vw,54px);font-weight:700;color:var(--white);}
+  .perf-item .num em{color:var(--red);font-style:normal;font-size:0.5em;display:block;margin-top:4px;font-weight:500;}
+  .perf-item .label{margin-top:10px;font-size:12px;letter-spacing:2px;color:var(--grey);text-transform:uppercase;}
+
+  /* ---------- GALLERY ---------- */
+  .gallery-grid{
+    display:grid;grid-template-columns:1.4fr 1fr;gap:24px;
+  }
+  .gallery-grid .g-main{grid-row:span 2;}
+  .g-card{
+    position:relative;overflow:hidden;background:var(--black-2);border:1px solid var(--line);
+  }
+  .g-card img{width:100%;height:100%;object-fit:cover;transition:transform .5s;}
+  .g-card:hover img{transform:scale(1.04);}
+  .g-tag{
+    position:absolute;bottom:0;left:0;padding:18px 24px;
+    background:linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+    width:100%;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--white);
+  }
+  .gallery-side{display:flex;flex-direction:column;gap:24px;}
+  .gallery-side .g-card{flex:1;min-height:260px;}
+
+  /* ---------- SPECS ---------- */
+  .specs-wrap{display:grid;grid-template-columns:1fr 1fr;gap:64px;}
+  .spec-col h3{
+    font-size:14px;letter-spacing:3px;color:var(--red);margin-bottom:28px;padding-bottom:14px;
+    border-bottom:1px solid var(--line);
+  }
+  .spec-row{
+    display:flex;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--line);
+    font-size:15px;
+  }
+  .spec-row .k{color:var(--grey-light);font-weight:300;}
+  .spec-row .v{color:var(--white);font-weight:600;text-align:right;}
+
+  /* ---------- COLORS ---------- */
+  .colors-row{display:flex;gap:18px;flex-wrap:wrap;margin-top:8px;}
+  .color-chip{
+    width:64px;height:64px;border-radius:50%;border:2px solid var(--line);cursor:pointer;
+    position:relative;transition:transform .2s;
+  }
+  .color-chip:hover{transform:scale(1.1);}
+  .color-chip span{
+    position:absolute;top:76px;left:50%;transform:translateX(-50%);
+    font-size:11px;color:var(--grey);white-space:nowrap;letter-spacing:1px;
+  }
+
+  /* ---------- CONFIG / BUY ---------- */
+  .buy-section{background:var(--black-2);border-top:1px solid var(--line);}
+  .buy-grid{display:grid;grid-template-columns:1fr 420px;gap:64px;align-items:start;}
+  .price-card{
+    background:var(--black-3);border:1px solid var(--line);padding:40px;position:sticky;top:120px;
+  }
+  .price-card .price-label{font-size:12px;letter-spacing:2px;color:var(--grey);text-transform:uppercase;}
+  .price-card .price{font-family:'Oswald',sans-serif;font-size:48px;font-weight:700;color:var(--white);margin:10px 0 6px;}
+  .price-card .price em{color:var(--red);font-style:normal;font-size:0.4em;}
+  .price-card .price-note{font-size:13px;color:var(--grey);margin-bottom:28px;}
+  .price-card .feature-list{list-style:none;margin-bottom:32px;}
+  .price-card .feature-list li{
+    padding:10px 0;border-bottom:1px solid var(--line);font-size:14px;color:var(--grey-light);
+    display:flex;align-items:center;gap:10px;
+  }
+  .price-card .feature-list li::before{content:'';width:6px;height:6px;background:var(--red);flex-shrink:0;}
+  .price-card .btn-primary{width:100%;text-align:center;}
+  .availability{margin-top:18px;text-align:center;font-size:12px;color:var(--grey);letter-spacing:1px;}
+  .availability b{color:var(--red);}
+
+  .highlight-list{list-style:none;}
+  .highlight-list li{
+    display:grid;grid-template-columns:64px 1fr;gap:22px;padding:28px 0;border-bottom:1px solid var(--line);
+  }
+  .highlight-list .hl-num{font-family:'Oswald',sans-serif;font-size:32px;color:var(--red);font-weight:700;}
+  .highlight-list h4{font-size:18px;color:var(--white);margin-bottom:8px;letter-spacing:0.5px;}
+  .highlight-list p{font-size:14px;color:var(--grey-light);font-weight:300;line-height:1.6;}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    border-top:1px solid var(--line);padding:64px 48px 32px;max-width:1400px;margin:0 auto;
+  }
+  .footer-top{
+    display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:40px;
+    padding-bottom:40px;border-bottom:1px solid var(--line);
+  }
+  .footer-logo{height:28px;margin-bottom:18px;}
+  .footer-top p{color:var(--grey);font-size:14px;max-width:340px;line-height:1.6;}
+  .footer-cols{display:flex;gap:64px;}
+  .footer-col h5{font-size:12px;letter-spacing:2px;color:var(--grey);text-transform:uppercase;margin-bottom:18px;}
+  .footer-col a{display:block;font-size:14px;color:var(--grey-light);margin-bottom:12px;}
+  .footer-col a:hover{color:var(--red);}
+  .footer-bottom{
+    display:flex;justify-content:space-between;padding-top:28px;color:var(--grey);font-size:12px;
+    flex-wrap:wrap;gap:12px;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:900px){
+    header{padding:18px 24px;}
+    nav ul{display:none;}
+    section{padding:90px 24px;}
+    .perf-grid{grid-template-columns:repeat(2,1fr);gap:32px;}
+    .perf-item{border-right:none;padding:0;}
+    .gallery-grid{grid-template-columns:1fr;}
+    .gallery-grid .g-main{height:340px;}
+    .gallery-side{flex-direction:row;}
+    .gallery-side .g-card{height:180px;}
+    .specs-wrap{grid-template-columns:1fr;gap:40px;}
+    .buy-grid{grid-template-columns:1fr;}
+    .price-card{position:static;}
+    .hero-stats{gap:32px;}
+    .footer-cols{gap:32px;flex-wrap:wrap;}
+  }
+</style>
+</head>
+<body>
+
+<header id="header">
+  <a href="#top"><img src="logo.svg" alt="Akantito" class="logo-mark"></a>
+  <nav>
+    <ul>
+      <li><a href="#performance">Динамика</a></li>
+      <li><a href="#gallery">Галерея</a></li>
+      <li><a href="#specs">Характеристики</a></li>
+      <li><a href="#buy">Купить</a></li>
+    </ul>
+  </nav>
+  <a href="#buy" class="btn-nav">Заказать</a>
+</header>
+
+<section class="hero" id="top">
+  <img src="car-hero.svg" alt="Akantito — спорткар" class="hero-img">
+  <div class="hero-fade"></div>
+  <div class="hero-content">
+    <div class="eyebrow">AKANTITO · MMXXVI</div>
+    <h1>RAGE<br><span>UNLEASHED</span></h1>
+    <p class="hero-sub">Купе, рождённое для одной задачи — стирать грань между водителем и дорогой. 640 лошадиных сил, кузов из карбона, характер, который не извиняется.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="num">2.9<span>с</span></div>
+        <div class="label">0–100 км/ч</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">640<span>л.с.</span></div>
+        <div class="label">Мощность</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">328<span>км/ч</span></div>
+        <div class="label">Макс. скорость</div>
+      </div>
+    </div>
+    <div class="hero-ctas">
+      <a href="#buy" class="btn-primary">Узнать цену</a>
+      <a href="#specs" class="btn-secondary">Все характеристики</a>
+    </div>
+  </div>
+  <div class="scroll-cue"><div class="line"></div>СКРОЛЛ</div>
+</section>
+
+<div class="perf-strip" id="performance">
+  <div class="perf-grid">
+    <div class="perf-item">
+      <div class="num">3.8<em>л / V8 битурбо</em></div>
+      <div class="label">Двигатель</div>
+    </div>
+    <div class="perf-item">
+      <div class="num">750<em>Н·м</em></div>
+      <div class="label">Крутящий момент</div>
+    </div>
+    <div class="perf-item">
+      <div class="num">1390<em>кг</em></div>
+      <div class="label">Сухая масса</div>
+    </div>
+    <div class="perf-item">
+      <div class="num">460<em>л.с./т</em></div>
+      <div class="label">Удельная мощность</div>
+    </div>
+  </div>
+</div>
+
+<section id="gallery">
+  <div class="section-head">
+    <div class="eyebrow">ГАЛЕРЕЯ</div>
+    <h2>Каждая линия — на своём месте</h2>
+    <p>Кузов вылеплен в аэродинамической трубе: ни одна поверхность не существует просто для красоты. Воздух работает на прижимную силу с первой секунды разгона.</p>
+  </div>
+  <div class="gallery-grid">
+    <div class="g-card g-main">
+      <img src="car-hero.svg" alt="Akantito, профиль">
+      <div class="g-tag">Профиль · Aero Package</div>
+    </div>
+    <div class="gallery-side">
+      <div class="g-card">
+        <img src="car-front34.svg" alt="Akantito, вид 3/4 спереди">
+        <div class="g-tag">3/4 спереди</div>
+      </div>
+      <div class="g-card">
+        <img src="car-interior.svg" alt="Интерьер Akantito">
+        <div class="g-tag">Кабина пилота</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="specs">
+  <div class="section-head">
+    <div class="eyebrow">ТЕХНИЧЕСКИЕ ХАРАКТЕРИСТИКИ</div>
+    <h2>Цифры, которые объясняют всё</h2>
+  </div>
+  <div class="specs-wrap">
+    <div class="spec-col">
+      <h3>ДВИГАТЕЛЬ И ДИНАМИКА</h3>
+      <div class="spec-row"><span class="k">Тип двигателя</span><span class="v">3.8 л V8 битурбо</span></div>
+      <div class="spec-row"><span class="k">Мощность</span><span class="v">640 л.с. при 7400 об/мин</span></div>
+      <div class="spec-row"><span class="k">Крутящий момент</span><span class="v">750 Н·м при 3000–6000 об/мин</span></div>
+      <div class="spec-row"><span class="k">Разгон 0–100 км/ч</span><span class="v">2.9 с</span></div>
+      <div class="spec-row"><span class="k">Разгон 0–200 км/ч</span><span class="v">8.4 с</span></div>
+      <div class="spec-row"><span class="k">Максимальная скорость</span><span class="v">328 км/ч</span></div>
+      <div class="spec-row"><span class="k">Трансмиссия</span><span class="v">8-ступ. DCT, лепестки на руле</span></div>
+      <div class="spec-row"><span class="k">Привод</span><span class="v">Полный, с активным распределением</span></div>
+      <div class="spec-row"><span class="k">Тормоза</span><span class="v">Карбон-керамика, 410 мм / 390 мм</span></div>
+    </div>
+    <div class="spec-col">
+      <h3>КУЗОВ И ИНТЕРЬЕР</h3>
+      <div class="spec-row"><span class="k">Кузов</span><span class="v">Карбоновая монокок-капсула</span></div>
+      <div class="spec-row"><span class="k">Сухая масса</span><span class="v">1390 кг</span></div>
+      <div class="spec-row"><span class="k">Длина / ширина / высота</span><span class="v">4 560 / 1 990 / 1 195 мм</span></div>
+      <div class="spec-row"><span class="k">Колёсная база</span><span class="v">2 680 мм</span></div>
+      <div class="spec-row"><span class="k">Диски</span><span class="v">20" / 21", кованые</span></div>
+      <div class="spec-row"><span class="k">Объём багажника</span><span class="v">180 л (передний)</span></div>
+      <div class="spec-row"><span class="k">Расход (смешанный цикл)</span><span class="v">12.8 л/100 км</span></div>
+      <div class="spec-row"><span class="k">Места</span><span class="v">2</span></div>
+      <div class="spec-row"><span class="k">Мультимедиа</span><span class="v">12.3" цифровая панель, аудио 14 динамиков</span></div>
+    </div>
+  </div>
+
+  <div style="margin-top:64px;">
+    <h3 style="font-size:14px;letter-spacing:3px;color:var(--red);margin-bottom:24px;">ДОСТУПНЫЕ ЦВЕТА КУЗОВА</h3>
+    <div class="colors-row">
+      <div class="color-chip" style="background:#E4101F;"><span>Corsa Red</span></div>
+      <div class="color-chip" style="background:#0a0a0a;border-color:#444;"><span>Nero Assoluto</span></div>
+      <div class="color-chip" style="background:#d9d9d9;"><span>Bianco Puro</span></div>
+      <div class="color-chip" style="background:#1c2b3a;"><span>Blu Profondo</span></div>
+      <div class="color-chip" style="background:#5a5a5a;"><span>Grigio Titanio</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="buy-section" id="buy">
+  <div class="buy-grid" style="margin:0 auto;max-width:1400px;padding:140px 48px;">
+    <div>
+      <div class="section-head" style="margin-bottom:48px;">
+        <div class="eyebrow">КОНФИГУРАЦИЯ</div>
+        <h2>Почему Akantito</h2>
+      </div>
+      <ul class="highlight-list">
+        <li>
+          <div class="hl-num">01</div>
+          <div>
+            <h4>Ручная сборка, ограниченный тираж</h4>
+            <p>Каждый экземпляр собирается вручную на одной линии — не более 180 машин в год выходит из цеха.</p>
+          </div>
+        </li>
+        <li>
+          <div class="hl-num">02</div>
+          <div>
+            <h4>Шасси из той же лаборатории, что и гоночные прототипы</h4>
+            <p>Карбоновый монокок разработан той же инженерной группой, что строит шасси для трековых программ бренда.</p>
+          </div>
+        </li>
+        <li>
+          <div class="hl-num">03</div>
+          <div>
+            <h4>Индивидуальная настройка под клиента</h4>
+            <p>От перепрошивки подвески до цвета прострочки в салоне — конфигурация согласовывается лично с инженером.</p>
+          </div>
+        </li>
+        <li>
+          <div class="hl-num">04</div>
+          <div>
+            <h4>3 года гарантии и сервис у дилера</h4>
+            <p>Полное гарантийное покрытие, выездная диагностика и приоритетная запись на трековые дни.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="price-card">
+      <div class="price-label">Базовая комплектация</div>
+      <div class="price">€ 214 900</div>
+      <div class="price-note">НДС включен · доставка по ЕС от 4 недель</div>
+      <ul class="feature-list">
+        <li>3.8 л V8 битурбо, 640 л.с.</li>
+        <li>Карбоновый монокок</li>
+        <li>Карбон-керамические тормоза</li>
+        <li>Адаптивная подвеска (3 режима)</li>
+        <li>Кованые диски 20"/21"</li>
+        <li>Кожа + алькантара, ручная отделка</li>
+      </ul>
+      <a href="#" class="btn-primary">Запросить тест-драйв</a>
+      <div class="availability">Свободно к заказу: <b>осталось 12 слотов</b> на 2026 год</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div>
+      <img src="logo.svg" alt="Akantito" class="footer-logo">
+      <p>Akantito создаёт спортивные купе малыми сериями для тех, кто считает дорогу продолжением характера. Производство — Европа.</p>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h5>Модель</h5>
+        <a href="#performance">Динамика</a>
+        <a href="#gallery">Галерея</a>
+        <a href="#specs">Характеристики</a>
+      </div>
+      <div class="footer-col">
+        <h5>Покупка</h5>
+        <a href="#buy">Конфигуратор</a>
+        <a href="#buy">Тест-драйв</a>
+        <a href="#buy">Дилеры</a>
+      </div>
+      <div class="footer-col">
+        <h5>Контакты</h5>
+        <a href="mailto:sales@akantito.com">sales@akantito.com</a>
+        <a href="tel:+310000000">+31 00 000 00 00</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Akantito. Все права защищены.</span>
+    <span>Демонстрационный сайт-концепт</span>
+  </div>
+</footer>
+
+<script>
+  // header background on scroll
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    if(window.scrollY > 40){
+      header.style.background = 'rgba(10,10,10,0.92)';
+      header.style.backdropFilter = 'blur(8px)';
+      header.style.borderBottom = '1px solid #2a2a2a';
+    } else {
+      header.style.background = 'linear-gradient(to bottom, rgba(10,10,10,0.95), rgba(10,10,10,0))';
+      header.style.backdropFilter = 'none';
+      header.style.borderBottom = 'none';
+    }
+  });
+</script>
+
+</body>
+</html>

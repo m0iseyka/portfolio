@@ -1,0 +1,53 @@
+<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="cabinBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1a1a1a"/>
+      <stop offset="100%" stop-color="#050505"/>
+    </linearGradient>
+    <radialGradient id="dashGlow" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#3a0408" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="900" height="600" fill="url(#cabinBg)"/>
+  <rect width="900" height="600" fill="url(#dashGlow)"/>
+
+  <!-- dashboard sweep -->
+  <path d="M 0 380 C 200 320, 450 300, 700 330 C 800 345, 870 370, 900 400 L 900 600 L 0 600 Z"
+        fill="#161616" stroke="#2b2b2b" stroke-width="2"/>
+  <path d="M 0 380 C 200 320, 450 300, 700 330 C 800 345, 870 370, 900 400"
+        fill="none" stroke="#FF1E2D" stroke-width="2" opacity="0.6"/>
+
+  <!-- carbon texture strip -->
+  <rect x="60" y="360" width="780" height="14" fill="#0a0a0a" stroke="#2a2a2a"/>
+
+  <!-- digital instrument cluster -->
+  <g transform="translate(250,330)">
+    <rect x="-20" y="-15" width="240" height="90" rx="10" fill="#000" stroke="#333" stroke-width="2"/>
+    <circle cx="40" cy="30" r="38" fill="none" stroke="#FF1E2D" stroke-width="4" opacity="0.85"/>
+    <text x="40" y="36" font-family="Oswald, Arial" font-size="22" fill="#fff" text-anchor="middle">280</text>
+    <text x="40" y="50" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">km/h</text>
+    <circle cx="155" cy="30" r="38" fill="none" stroke="#666" stroke-width="3" opacity="0.7"/>
+    <text x="155" y="36" font-family="Oswald, Arial" font-size="20" fill="#ccc" text-anchor="middle">7400</text>
+    <text x="155" y="50" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">rpm</text>
+  </g>
+
+  <!-- steering wheel -->
+  <g transform="translate(640,420)">
+    <ellipse cx="0" cy="0" rx="120" ry="95" fill="none" stroke="#0c0c0c" stroke-width="34"/>
+    <ellipse cx="0" cy="0" rx="120" ry="95" fill="none" stroke="#1f1f1f" stroke-width="34" stroke-dasharray="2 360"/>
+    <path d="M -85 -45 C -50 -75, 50 -75, 85 -45" fill="none" stroke="#0c0c0c" stroke-width="30" stroke-linecap="round"/>
+    <circle cx="0" cy="-10" r="34" fill="#111" stroke="#FF1E2D" stroke-width="2"/>
+    <path d="M 0 -28 L 8 -10 L -8 -10 Z" fill="#FF1E2D"/>
+    <rect x="-130" y="-4" width="20" height="10" rx="3" fill="#FF1E2D"/>
+    <rect x="110" y="-4" width="20" height="10" rx="3" fill="#FF1E2D"/>
+  </g>
+
+  <!-- seat hint -->
+  <path d="M 0 600 C 10 480, 60 420, 140 410 C 200 402, 240 440, 230 500 L 220 600 Z"
+        fill="#0d0d0d" stroke="#FF1E2D" stroke-width="1.5" opacity="0.9"/>
+  <path d="M 30 580 C 40 500, 80 450, 140 445" fill="none" stroke="#3a0408" stroke-width="2"/>
+
+  <!-- ambient red stitch line -->
+  <path d="M 60 374 L 840 374" stroke="#FF1E2D" stroke-width="1" stroke-dasharray="6 5" opacity="0.5"/>
+</svg>
